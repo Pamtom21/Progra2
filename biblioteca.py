@@ -35,13 +35,13 @@ class Catalogo_Biblioteca:
         libros_restantes = [libro for libro in self.libros if libro.titulo != titulo]
         if len(libros_restantes) < len(self.libros):
             self.libros = libros_restantes
-            print(f"El libro '{titulo}' ha sido eliminado del catálogo.")
+            print(f"El libro '{titulo}' ha sido eliminado del catalogo.")
         else:
-            print(f"No se encontró el libro '{titulo}' en el catálogo.")
+            print(f"No se encontro el libro '{titulo}' en el catalogo.")
 
     def registrar_usuario(self, usuario):
         self.usuarios.append(usuario)
-        print(f"Usuario {usuario.nombre} registrado con éxito.")
+        print(f"Usuario {usuario.nombre} registrado con exito.")
 
     def prestar_libro(self, titulo, nombre_usuario):
         libro = next((libro for libro in self.libros if libro.titulo == titulo), None)
@@ -66,7 +66,7 @@ class Catalogo_Biblioteca:
             prestamo.fecha_devolucion = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             print(f"El libro '{titulo}' ha sido devuelto por {nombre_usuario}.")
         else:
-            print(f"No se encontró ningún registro de préstamo para el libro '{titulo}' y el usuario '{nombre_usuario}'.")
+            print(f"No se encontró ningun registro de prestamo para el libro '{titulo}' y el usuario '{nombre_usuario}'.")
 
     def consultar_libros_disponibles(self):
         libros_disponibles = [libro for libro in self.libros if libro.disponible]
@@ -74,35 +74,35 @@ class Catalogo_Biblioteca:
 
     def historial_prestamos(self):
         if self.prestamos:
-            print("Historial de préstamos:")
+            print("Historial de prestamos:")
             for prestamo in self.prestamos:
                 print(f"Usuario: {prestamo.usuario.nombre}, Libro: {prestamo.libro.titulo}, "
-                      f"Fecha de préstamo: {prestamo.fecha_prestamo}, Fecha de devolución: {prestamo.fecha_devolucion}")
+                      f"Fecha de prestamo: {prestamo.fecha_prestamo}, Fecha de devolucion: {prestamo.fecha_devolucion}")
         else:
-            print("No hay registros de préstamos.")
+            print("No hay registros de prestamos.")
 
     def agregar_libro_consola(self):
-        titulo = input("Ingrese título del libro: ")
+        titulo = input("Ingrese titulo del libro: ")
         autor = input("Ingrese nombre del autor del libro: ")
         N_paginas = int(input("Ingrese número de páginas del libro: "))
         libro = Libro(titulo, autor, N_paginas)
         self.agregar_libro(libro)
-        print(f"El libro '{titulo}' ha sido agregado al catálogo.")
+        print(f"El libro '{titulo}' ha sido agregado al catalogo.")
 
 def interfaz_biblioteca():
     biblioteca = Catalogo_Biblioteca()
 
     while True:
-        print("\nBienvenido a la Biblioteca Ratón Lolero")
+        print("\nBienvenido a la Biblioteca Raton Lolero")
         print("Selecciona la operación que deseas realizar:")
-        print("1. Añadir o eliminar libro del catálogo")
+        print("1. Añadir o eliminar libro del catalogo")
         print("2. Registrarse")
         print("3. Prestar y devolver libros")
         print("4. Consultar libros disponibles")
-        print("5. Historial de préstamos")
+        print("5. Historial de prestamos")
         print("6. Salir")
 
-        opcion = input("Ingresa el número de la opción que deseas: ")
+        opcion = input("Ingresa el número de la opcion que deseas: ")
 
         if opcion == '6':
             break
@@ -110,15 +110,15 @@ def interfaz_biblioteca():
         if opcion == '1':
             print("\n1. Añadir libro al catálogo")
             print("2. Eliminar libro del catálogo")
-            subopcion = input("Selecciona una opción: ")
+            subopcion = input("Selecciona una opcion: ")
 
             if subopcion == '1':
                 biblioteca.agregar_libro_consola()
             elif subopcion == '2':
-                titulo = input("Ingresa el título del libro a eliminar: ")
+                titulo = input("Ingresa el titulo del libro a eliminar: ")
                 biblioteca.eliminar_libro(titulo)
             else:
-                print("Opción no válida.")
+                print("Opcion no valida.")
 
         elif opcion == '2':
             nombre = input("Ingresa tu nombre: ")
@@ -129,18 +129,18 @@ def interfaz_biblioteca():
         elif opcion == '3':
             print("\n1. Prestar libro")
             print("2. Devolver libro")
-            subopcion = input("Selecciona una opción: ")
+            subopcion = input("Selecciona una opcion: ")
 
             if subopcion == '1':
-                titulo = input("Ingresa el título del libro a prestar: ")
+                titulo = input("Ingresa el titulo del libro a prestar: ")
                 nombre_usuario = input("Ingresa tu nombre de usuario: ")
                 biblioteca.prestar_libro(titulo, nombre_usuario)
             elif subopcion == '2':
-                titulo = input("Ingresa el título del libro a devolver: ")
+                titulo = input("Ingresa el titulo del libro a devolver: ")
                 nombre_usuario = input("Ingresa tu nombre de usuario: ")
                 biblioteca.devolver_libro(titulo, nombre_usuario)
             else:
-                print("Opción no válida.")
+                print("Opcion no valida.")
 
         elif opcion == '4':
             libros_disponibles = biblioteca.consultar_libros_disponibles()
@@ -155,7 +155,7 @@ def interfaz_biblioteca():
             biblioteca.historial_prestamos()
 
         else:
-            print("Opción no válida.")
+            print("Opcion no valida.")
 
 if __name__ == "__main__":
     interfaz_biblioteca()
