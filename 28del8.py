@@ -2,6 +2,7 @@ class Avion:
     def __init__(self, modeloavion, asientos):
         self.modeloavion = modeloavion
         self.asientos = asientos
+   
     def __str__(self):
         return f"{self.modeloavion}"    
 class vuelo:
@@ -13,14 +14,28 @@ class vuelo:
          self.hora=hora
          self._avion=_avion
          self.reservaciones=[]
+     
      def __str__(self):
         return f"{self.nvuelo}, {self.origen}, {self.destino}, {self.fecha}, {self.hora} {self._avion}"  
+    
      def reservar(self,_reserva):
         self.reservaciones.append(_reserva)
+    
      def mostrar_reservas(_reserva):
         print("reservas:")
         for _reserva in vuelo_1.reservaciones:
-            print(f"numero reserva {_reserva.nreserva} (Pasajero: {_reserva._pasajero}), (Vuelo: {_reserva._vuelo}) Estado: {_reserva.estado}")
+            print(f"Su numero reserva {_reserva.nreserva} (Pasajero: {_reserva._pasajero}), (Vuelo: {_reserva._vuelo}) Estado: {_reserva.estado}")
+
+     def eliminar_reservacion(self, nreserva):
+        for reserva in self.reservaciones:
+            if reserva.nreserva == nreserva:
+                confirmacion = input(f"¿Estás seguro de quiere eliminar la reserva {nreserva} ? para confirma con Y y canselar la accion con N (Y/N): ")
+                if confirmacion == "Y":
+                    self.reservaciones.remove(reserva)
+                    print(f"La reserva {nreserva} ha sido eliminada con exito")
+                elif confirmacion == "N":
+                    print("La eliminacion de la reserva a sido cancelada")
+
 class Vuelos:
     def __init__(self):
         self.Vuelos = []
@@ -28,21 +43,12 @@ class Vuelos:
     def Vuelos_disponibles(self, avuelo):
         self.Vuelos.append(avuelo)
 
-    def delete_vuelo(self, nvuelo):
-        for vuelo in self.Vuelos:
-            if vuelo.nvuelo == nvuelo:
-                confirmacion = input(f"¿Estás seguro de eliminar el vuelo {nvuelo}? (Y/N): ")
-                if confirmacion == "Y":
-                    self.Vuelos.remove(vuelo)
-                    print(f"El vuelo {nvuelo} ha sido eliminado.")
-                elif confirmacion == "N":
-                    print("Eliminación de vuelo cancelada.")
 
     def mostrar_vuelos(_vuelo):
         print("Vuelos disponibles:")
         for _vuelo in vuelos_1.Vuelos:
-            print(f"Proximos_vuelo: {_vuelo.nvuelo}, Lugar de Origen: {_vuelo.origen}, Lugar de Destino: {_vuelo.destino}, Fecha asignada: {_vuelo.fecha}, Hora de: {_vuelo.hora}, Avion asignado: {_vuelo._avion}"
-                  "-------------------------------------------------------------------------------------------------------------------------------------------------------------------------")    
+            print(f"Vuelo Disponible : --------------------- {_vuelo.nvuelo}, Lugar de Origen: {_vuelo.origen}, Lugar de Destino: {_vuelo.destino}, Fecha asignada: {_vuelo.fecha}, Hora de: {_vuelo.hora}, Avion asignado: {_vuelo._avion}"
+                  "---------------------")    
 class reservacion:
     def __init__(self, nreserva, _pasajero, _vuelo, estado):
         self.nreserva=nreserva
@@ -71,14 +77,13 @@ vuelos_1.Vuelos_disponibles(vuelo_14)
 
 Vuelos.mostrar_vuelos(vuelo_1)
 
-# Eliminar un vuelo
-vuelo_eliminar = int(input("Ingrese el número de vuelo que desea eliminar: "))
-vuelos_1.delete_vuelo(vuelo_eliminar)
+
 class Pasajero:
     def __init__(self, pasaporte, nombre):
         self.pasaporte = pasaporte
         self.nombre = nombre
         self.vuelos_reservados = []
+    
     def __str__(self):
         return f"{self.pasaporte}, {self.nombre}"
     # def reservar(self,_reserva):
@@ -103,6 +108,20 @@ pasajero_3 = Pasajero("EF345678", "Nashe")
 reserva= reservacion(1, pasajero_1, vuelo_1, "reservado")
 vuelo.reservar(vuelo_1, reserva)
 vuelo.mostrar_reservas(reserva)
+
+vuelos_1.mostrar_vuelos()
+
+numero_vuelo_mostrar_reservas = int(input("Ingrese el numero del vuelo para mostrar sus reservaciones: "))
+for vuelo_actual in vuelos_1.Vuelos:
+    if vuelo_actual.nvuelo == numero_vuelo_mostrar_reservas:
+        vuelo_actual.mostrar_reservas()
+
+
+numero_reserva_a_eliminar = int(input("Ingrese el numero de la  reserva que desea eliminar  a continuacion: "))
+for vuelo_actual in vuelos_1.Vuelos:
+    vuelo_actual.eliminar_reservacion(numero_reserva_a_eliminar)
+
+vuelos_1.mostrar_vuelos()
 
 
 
